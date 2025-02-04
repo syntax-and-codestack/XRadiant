@@ -858,7 +858,7 @@ int GenerateDump( EXCEPTION_POINTERS* pExceptionPointers ) {
 	BOOL bMiniDumpSuccessful;
     char szPath[MAX_PATH]; 
     char szFileName[MAX_PATH]; 
-    char szAppName[] = "GTKRadiant";
+    char szAppName[] = "XRadiant";
     char* szVersion = RADIANT_VERSION;
     DWORD dwBufferSize = MAX_PATH;
     HANDLE hDumpFile;
@@ -899,7 +899,7 @@ int main( int argc, char* argv[] ) {
 		char szPath[MAX_PATH]; 
 		char szText[MAX_PATH]; 
 		char szFileName[MAX_PATH]; 
-		char szAppName[] = "GTKRadiant";
+		char szAppName[] = "XRadiant";
 		SYSTEMTIME stLocalTime;
 		DWORD dwBufferSize = MAX_PATH;
 
