@@ -107,7 +107,7 @@ bool CheckForTinyBrush( brush_t* b, int n, float fSize ){
 		}
 	}
 	if ( bTiny ) {
-		Sys_Printf( "Possible problem brush (too small) #%i ", n );
+		Sys_Printf( "---Possible problem brush (too small) #%i---", n );
 	}
 	return bTiny;
 }
@@ -128,7 +128,7 @@ void Map_BuildBrushData( void ){
 		Brush_Build( b, true, false, false );
 		if ( !b->brush_faces || ( g_PrefsDlg.m_bCleanTiny && CheckForTinyBrush( b, n++, g_PrefsDlg.m_fTinySize ) ) ) {
 			Brush_Free( b );
-			Sys_Printf( "Removed degenerate brush\n" );
+			Sys_Printf( "---Removed degenerate brush---\n" );
 		}
 	}
 	Sys_EndWait();
