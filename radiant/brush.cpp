@@ -19,6 +19,10 @@
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+/*
+Brush.cpp modified by hunter manko
+*/
+
 #include "stdafx.h"
 #include <assert.h>
 #include <glib/gi18n.h>
@@ -30,19 +34,25 @@ extern MainFrame* g_pParentWnd;
 
 // globals
 
-int g_nBrushId = 0;
+int xbrushid = 0;
 
+//xbrush type
 #ifdef ENABLE_GROUPS
-const char* Brush_Name( brush_t *b ){
-	static char cBuff[1024];
-	b->numberId = g_nBrushId++;
+const char* Brush_Name( brush_t *brush ){
+	static char g_nBrushBuffModule[1024];
+	brush->numberId = xbrushid++;
 	if ( g_qeglobals.m_bBrushPrimitMode ) {
-		sprintf( cBuff, "Brush %i", b->numberId );
-		Brush_SetEpair( b, "Name", cBuff );
+		sprintf( cBuff, "Brush Number %i Listed", brush->numberId );
+		Brush_SetEpair( brush, "Name %c", cBuff );
 	}
-	return cBuff;
+	return g_nBrushBuffModule;
 }
 #endif
+
+//brush real size
+std::size_t q_globalBrushSize(brush_t * brush){
+q_globalBrushSize(brush) = sizeof(*brush);
+};
 
 brush_t *Brush_Alloc(){
 	brush_t *b = (brush_t*)qmalloc( sizeof( brush_t ) );
@@ -54,29 +64,29 @@ brush_t *Brush_Alloc(){
    free(b);
    }
  */
-void PrintWinding( winding_t *w ){
+void PrintWinding( winding_t *winding ){
 	int i;
 
-	Sys_Printf( "-------------\n" );
-	for ( i = 0 ; i < w->numpoints ; i++ )
-		Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n", w->points[i][0]
-					, w->points[i][1], w->points[i][2] );
+	Sys_Printf( "----------Brush Primit Winding-------\n" );
+	for ( i = 0 ; i < winding->numpoints ; i++ )
+		Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n", winding->points[i][0]
+					, winding->points[i][1], winding->points[i][2] );
 }
 
-void PrintPlane( plane_t *p ){
-	Sys_Printf( "(%5.2f, %5.2f, %5.2f) : %5.2f\n",  p->normal[0],  p->normal[1],
-				p->normal[2],  p->dist );
+void PrintPlane( plane_t *plane ){
+	Sys_Printf( "(%5.2f, %5.2f, %5.2f) : %5.2f\n",  plane->normal[0],  plane->normal[1],
+				plane->normal[2],  plane->dist );
 }
 
-void PrintVector( vec3_t v ){
-	Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n",  v[0],  v[1], v[2] );
+void PrintVector( vec3_t vector ){
+	Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n",  vector[0],  vector[1], vector[2] );
 }
 
 
 /*
    =============================================================================
-
-            TEXTURE COORDINATES
+   
+                        BRUSH TEXTURE COORDINATES 
 
    =============================================================================
  */
@@ -817,7 +827,7 @@ winding_t *Brush_MakeFaceWinding( brush_t *b, face_t *face ){
 	}
 
 	if ( !w ) {
-		Sys_FPrintf( SYS_WRN, "unused plane\n" );
+		Sys_FPrintf( SYS_WRN, "---unused plane---\n" );
 	}
 
 	return w;
