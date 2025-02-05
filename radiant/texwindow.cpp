@@ -25,12 +25,7 @@
 // Leonardo Zide (leo@lokigames.com)
 //
 
-/*!\todo
-   Clean up texture menu.
-   - Remove all global variables and use some objects instead.
-   - Create an interface for a plugin to add texture menu items.
-   - Make sure the interface is not dependent on gtk.
- */
+//texwindow.cpp modified by hunter manko
 
 #if defined( __linux__ ) || defined( __BSD__ ) || defined( __APPLE__ )
 #include <dirent.h>
