@@ -79,7 +79,11 @@ void TexWnd_InitShaderList(const char * g_pTexWnd_FilterFormat, IShader * shader
 	
 	if(shaderList){
            g_pTexWnd_FilterFormat = "*.png", "*.dds", "*.tga";
+	Sys_Printf("----------Texture Window Filtered Shaders Succesfully-----------\n");
 	}
+
+ 
+	
 };
 
 
