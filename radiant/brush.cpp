@@ -34,7 +34,7 @@
 extern MainFrame* g_pParentWnd;
 
 GtkLabel * Radiant_BrushLabel;
-GtkViewport * Child_BrushViewport;
+GtkViewport * Radiant_BrushViewport;
 
 // globals
 int avpPrimitid = 0;
