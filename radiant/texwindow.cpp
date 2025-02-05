@@ -85,7 +85,7 @@ void TexWnd_InitShaderList(const char * g_pTexWnd_FilterFormat, IShader * shader
 
 	if(MAX_SHADER > MAX_SHADER){
 		shaderList != shaderList;
-		Sys_Printf("---------Too Many Shaders In List> %f--------", MAX_SHADER);
+		Sys_Printf("---------Too Many Shaders In List: %f--------", MAX_SHADER);
 		return NULL;
 	}
 
