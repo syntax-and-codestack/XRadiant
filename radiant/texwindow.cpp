@@ -39,7 +39,10 @@
 #include "missing.h"
 #include "texmanip.h"
 
+//avp texture list
 #define TEXTURE_LIST (GtkList*)
+
+GtkList * TextureList;
 
 
 #define TYP_MIPTEX  68
