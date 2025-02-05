@@ -44,93 +44,43 @@
 
 GtkList * TextureList;
 
-
 #define TYP_MIPTEX  68
-
-
-
 #define FONT_HEIGHT 10
 
-
-
 int texture_mode = GL_LINEAR_MIPMAP_LINEAR;
-
-
-
 int g_nTextureOffset = 0;
-
-
-
-
-
 char texture_directory[128];
-
-
-
-
-
 qboolean g_bShowAllShaders;
-
-
 bool g_bFilterEnabled = false;
-
-
 CString g_strFilter;
-
-
-
-
-
 int nActiveShadersCount;
-
-
-
-
 int nCurrentShader;
-
-
-
 IShader*  pCurrentShader;
-
-
 qtexture_t  *current_texture = NULL;
-
-
-
 int current_x, current_y, current_row;
-
-
-
 int texture_nummenus;
-
-
 char texture_menunames[MAX_TEXTUREDIRS][128];
-
-
-
-
-
 GSList *l_shaderfiles = NULL;
-
-
-
-
 void SelectTexture( int mx, int my, bool bShift, bool bFitScale = false );
-
-
-
 void  Texture_MouseDown( int x, int y, int buttons );
-
-
-
 void  Texture_MouseMoved( int x, int y, int buttons );
-
-
-
-
 CPtrArray g_lstSkinCache;
 
+//add shader to list
+void addShader_ToShaderLst(GtkListBox * shaderlst, char *texpath = texture_directory);
 
+//init shader list
+void TexWnd_InitShaderList(const char * g_pTexWnd_FilterFormat, IShader * shader){
+ float MAX_SHADER[9999];//max shaders in list
+ GtkWidget * shaderList;
+ qboolean FlushShader;
+	
+ shaderList = gtk_list_box_new();
+	
+	if(shaderList){
+           g_pTexWnd_FilterFormat = "*.png", "*.dds", "*.tga";
+	}
+};
 
 
 struct SkinInfo
