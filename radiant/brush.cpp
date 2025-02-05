@@ -107,6 +107,7 @@ brush_t* Brush_TokenPrimit(int brushid){
            brushid = AvP2BrushPrimit;
 	    free(Brush_TokenPrimit(brushid));
 	}
+  Sys_Printf("----------Brush Made An AvP Brush------------\n");
 };
 
 
