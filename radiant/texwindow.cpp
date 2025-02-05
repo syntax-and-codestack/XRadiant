@@ -146,21 +146,6 @@ struct SkinInfo
 	SkinInfo(){};
 };
 
-// =============================================================================
-// global functions
-
-// gets active texture extension
-//
-// FIXME: fix this to be generic from project file
-//
-int GetTextureExtensionCount(){
-	// hardcoded hack for png support
-	if ( g_pGameDescription->mGameFile == "sof2.game" ) {
-		return 3;
-	} else {
-		return 2;
-	}
-}
 
 const char* GetTextureExtension( int nIndex ){
 	switch ( nIndex )
@@ -169,7 +154,7 @@ const char* GetTextureExtension( int nIndex ){
 		return "tga";
 		break;
 	case 1:
-		return "jpg";
+		return "dds";//use *!dds!*
 		break;
 	case 2:
 		return "png";
