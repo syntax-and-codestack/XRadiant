@@ -23,26 +23,33 @@
  Brush.cpp modified by hunter manko
 */
 
+/*----------------------------------------------
+    This file has a level 5 modification    
+----------------------------------------------*/
+
 #include "stdafx.h"
 #include <assert.h>
 #include <glib/gi18n.h>
 #include "winding.h"
 #include <limits.h>
 #include "filters.h"
-#include <iterator>
+#include <iterator>//need to iterate brush_t<char_ptr*>(*brush_t)
 
 extern MainFrame* g_pParentWnd;
 
+//Brush Label
 GtkLabel * Radiant_BrushLabel;
+//Seperate Viewport That Views Brush
 GtkViewport * Radiant_BrushViewport;
 
-// globals
+//---globals---//
 int avpPrimitid = 0;
 
 enum{
- AvP2BrushPrimit = 0
+ AvP2BrushPrimit = 0//avp brush
 }m_bBrushType;
 
+//---BrushName---//
 #ifdef ENABLE_GROUPS
 const char* Brush_Name( brush_t *brush ){
  static char g_nBrushBuffModule[1024];
