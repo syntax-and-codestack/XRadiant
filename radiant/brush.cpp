@@ -36,7 +36,7 @@ extern MainFrame* g_pParentWnd;
 
 int avpPrimitid = 0;
 
-//xbrush type
+//brush name
 #ifdef ENABLE_GROUPS
 const char* Brush_Name( brush_t *brush ){
 	static char g_nBrushBuffModule[1024];
@@ -58,27 +58,35 @@ brush_t *Brush_Alloc(){
 	brush_t *b = (brush_t*)qmalloc( sizeof( brush_t ) );
 	return b;
 }
-/*
-   void Brush_Free(brush_t *b)
-   {
-   free(b);
-   }
- */
+
+void PrintSize(){
+ Sys_Printf("--------Radiant Brush Size %sizeof(%*brush_t)---------\n");
+ Sys_Printf("malloc data brush", sizeof(*brush_t));
+};
+
+void Radiant_PrintBrushFree(){
+ Sys_Printf("-------------Radiant Brush Free--------------\n");
+	Sys_Printf("---Free---:", 
+		free(brush_t*(b));
+};
+
 void PrintWinding( winding_t *winding ){
 	int i;
 
-	Sys_Printf( "----------Brush Primit Winding-------\n" );
+	Sys_Printf( "----------Radiant Brush Primit Winding Printed: %i-------\n" );
 	for ( i = 0 ; i < winding->numpoints ; i++ )
 		Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n", winding->points[i][0]
 					, winding->points[i][1], winding->points[i][2] );
 }
 
 void PrintPlane( plane_t *plane ){
+	Sys_Printf("--------------Radiant Brush Plane Printed: %f----------------\n");
 	Sys_Printf( "(%5.2f, %5.2f, %5.2f) : %5.2f\n",  plane->normal[0],  plane->normal[1],
 				plane->normal[2],  plane->dist );
 }
 
 void PrintVector( vec3_t vector ){
+	Sys_Printf("-------------Radiant Plane Vectors Printed: %f--------------\n");
 	Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n",  vector[0],  vector[1], vector[2] );
 }
 
