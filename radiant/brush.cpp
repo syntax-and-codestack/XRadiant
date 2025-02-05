@@ -20,7 +20,7 @@
  */
 
 /*
-Brush.cpp modified by hunter manko
+ Brush.cpp modified by hunter manko
 */
 
 #include "stdafx.h"
@@ -34,16 +34,16 @@ extern MainFrame* g_pParentWnd;
 
 // globals
 
-int xbrushid = 0;
+int avpPrimitid = 0;
 
 //xbrush type
 #ifdef ENABLE_GROUPS
 const char* Brush_Name( brush_t *brush ){
 	static char g_nBrushBuffModule[1024];
-	brush->numberId = xbrushid++;
+	brush->numberId = avpPrimitid++;
 	if ( g_qeglobals.m_bBrushPrimitMode ) {
-		sprintf( cBuff, "Brush Number %i Listed", brush->numberId );
-		Brush_SetEpair( brush, "Name %c", cBuff );
+		sprintf( g_nBrushBuffModule, "AvP Brush Number %i Listed", brush->numberId );
+		Brush_SetEpair( brush, "AvP Primit Name %c", g_nBrushBuffModule );
 	}
 	return g_nBrushBuffModule;
 }
