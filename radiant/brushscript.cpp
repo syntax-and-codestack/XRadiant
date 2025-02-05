@@ -27,6 +27,10 @@
    should we cleanup and remove it for good
  */
 
+/*
+ *!brushscript.cpp modified by hunter manko!*
+*/
+
 #include <glib/gi18n.h>
 
 #include "stdafx.h"
@@ -91,7 +95,7 @@ void AddVariable( const char* pName, float fValue, const char* pInput = NULL ){
 		g_nVariableCount++;
 	}
 	else{
-		gtk_MessageBox( g_pParentWnd->m_pWidget, _( "Maximum script variable limit reached!" ) );
+		gtk_MessageBox( g_pParentWnd->m_pWidget, _( "---Maximum brush script variable limit reached!---\n" ) );
 	}
 }
 
@@ -251,6 +255,8 @@ brush_t* CopyBrush( brush_t* p ){
 	//Brush_AddToList (pCopy, &active_brushes);
 	//Entity_LinkBrush (world_entity, pCopy);
 	Brush_Build( pCopy, false );
+
+   Sys_Printf("------Brush Script Copied------\n");
 
 	return pCopy;
 }
