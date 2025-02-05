@@ -32,29 +32,28 @@
 
 extern MainFrame* g_pParentWnd;
 
-//brush label name
-GtkLabel * gtk_radiant_brush_label;
+GtkLabel * Radiant_BrushLabel;
+GtkViewport * Child_BrushViewport;
 
 // globals
 
 int avpPrimitid = 0;
 
-//brush name
 #ifdef ENABLE_GROUPS
 const char* Brush_Name( brush_t *brush ){
-	static char g_nBrushBuffModule[1024];
-	brush->numberId = avpPrimitid++;
+ static char g_nBrushBuffModule[1024];
+ brush->numberId = avpPrimitid++;
 	if ( g_qeglobals.m_bBrushPrimitMode ) {
 		sprintf( g_nBrushBuffModule, "AvP Brush Number %i Listed", brush->numberId );
 		Brush_SetEpair( brush, "AvP Primit Name %c", g_nBrushBuffModule );
 	}
-	return g_nBrushBuffModule;
+  return g_nBrushBuffModule;
 }
 #endif
 
 //brush real size
-std::size_t q_globalBrushSize(brush_t * brush){
-q_globalBrushSize(brush) = sizeof(*brush);
+std::size_t globalBrushSize(brush_t * brush){
+ globalBrushSize(brush) = sizeof(*brush);
 };
 
 brush_t *Brush_Alloc(){
