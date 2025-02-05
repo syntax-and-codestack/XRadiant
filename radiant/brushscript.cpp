@@ -41,12 +41,12 @@
 ----------------------------------*/
 struct AvPRadiantBrushVar
 {
-	CString AvPBrush_strName;
-	CString AvPBrush_strInput;
-	float AvPBrush_fValue;
+	CString AvPBrush_strName;//renamed
+	CString AvPBrush_strInput;//renamed
+	float AvPBrush_fValue;//renamed
 };
 
-//dont wanna use… but ill keep just in case
+//I dont wanna use… but ill keep just in case
 struct SVecVariableDef
 {
 	CString m_strName;
@@ -67,14 +67,16 @@ int AvP_Brush_g_nVariableCount;
 int AvP_Brush_g_nVecVariableCount;
 int AvP_Brush_g_nLoopCounter;
 float AvP_Tableg_fDefault = 9999.9f;
-vec3_t g_vDefault;
-bool g_bStartLoop;
-char* g_pLooper;
-bool g_bKeepGoing;
+vec3_t AvP_Datag_vDefault;
+bool AvPg_bStartLoop;
+char* AvP_Datag_pLooper;
+bool AvPg_bKeepGoing;
 
 SVariableDef g_AvpBrushVariablesTable[AvP_Brush_Maxes];
-SVecVariableDef g_VecBrushTableVariables[AvP_Brush_Maxes];
+SVecVariableDef g_AvPVecBrushTableVariables[AvP_Brush_Maxes];
 
+/*
+ *!DISCARD USING NEW AVP INIT!*
 void InitForScriptRun(){
 	g_pHold1 = NULL;
 	g_pHold2 = NULL;
@@ -87,9 +89,24 @@ void InitForScriptRun(){
 	g_pLooper = NULL;
 	g_bKeepGoing = true;
 }
+*/
+
+//inits AvP scripts for run
+const void AvP_InitScriptRun(int m_bTimer){
+ AvP_g_pHold1 = NULL;
+ AvP_g_pHold2 = NULL;
+ AvP_g_pHold3 = NULL;
+ AvP_RadiantAPI_g_bRotateAroundSelection != false;
+AvP_Brush_g_nVariableCount = 0;
+AvP_Brush_g_nVecVariableCount = 0;
+AvP_Brush_g_nLoopCounter = 0;
+AvPg_bStartLoop != true;
+AvP_Datag_pLooper = NULL;
+AvPg_bKeepGoing != false;
+}; 
 
 void AddVariable( const char* pName, float fValue, const char* pInput = NULL ){
-	if ( g_nVariableCount < MAX_VARIABLES ) {
+	if ( AvP_Brush_g_nVariableCount < AvP_Brush_Maxes ) {
 		g_Variables[g_nVariableCount].m_strName = pName;
 		g_Variables[g_nVariableCount].m_strName.MakeLower();
 		g_Variables[g_nVariableCount].m_fValue = fValue;
