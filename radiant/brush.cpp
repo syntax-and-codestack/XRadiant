@@ -32,6 +32,9 @@
 
 extern MainFrame* g_pParentWnd;
 
+//brush label name
+GtkLabel * gtk_radiant_brush_label;
+
 // globals
 
 int avpPrimitid = 0;
@@ -468,27 +471,6 @@ void Face_TexdefFromTextureVectors( face_t *f, long double STfromXYZ[2][4], vec3
 	td->shift[0] = STfromXYZ[0][3];
 	td->shift[1] = STfromXYZ[1][3];
 
-	/**
-	 * SOLVE:
-	 *  STfromXYZ[0][sv] = (cosv * pvecs[0][sv] - sinv * pvecs[0][tv]) / td->scale[0];
-	 *  STfromXYZ[0][tv] = (sinv * pvecs[0][sv] + cosv * pvecs[0][tv]) / td->scale[0];
-	 *  STfromXYZ[1][sv] = (cosv * pvecs[1][sv] - sinv * pvecs[1][tv]) / td->scale[1];
-	 *  STfromXYZ[1][tv] = (sinv * pvecs[1][sv] + cosv * pvecs[1][tv]) / td->scale[1];
-	 * FOR:
-	 *  sinv, cosv, td->scale[0], td->scale[1]
-	 * WE KNOW:
-	 *  sinv^2 + cosv^2 = 1
-	 *  pvecs[0][sv] is +/-1
-	 *  pvecs[0][tv] is 0
-	 *  pvecs[1][sv] is 0
-	 *  pvecs[1][tv] is +/-1
-	 * THUS:
-	 *  STfromXYZ[0][sv] = +cosv * pvecs[0][sv] / td->scale[0];
-	 *  STfromXYZ[0][tv] = +sinv * pvecs[0][sv] / td->scale[0];
-	 *  STfromXYZ[1][sv] = -sinv * pvecs[1][tv] / td->scale[1];
-	 *  STfromXYZ[1][tv] = +cosv * pvecs[1][tv] / td->scale[1];
-	 */
-
 	td->scale[0] = sqrt( STfromXYZ[0][sv] * STfromXYZ[0][sv] + STfromXYZ[0][tv] * STfromXYZ[0][tv] );
 	td->scale[1] = sqrt( STfromXYZ[1][sv] * STfromXYZ[1][sv] + STfromXYZ[1][tv] * STfromXYZ[1][tv] );
 
@@ -501,26 +483,6 @@ void Face_TexdefFromTextureVectors( face_t *f, long double STfromXYZ[2][4], vec3
 
 	long double sign0tv = ( STfromXYZ[0][tv] > 0 ) ? +1 : -1;
 	ang = atan2( sign0tv * STfromXYZ[0][tv], sign0tv * STfromXYZ[0][sv] ); // atan2(y, x) with y positive is in [0, PI[
-
-	// STOP
-	// We have until now ignored the fact that td->scale[0] or td->scale[1] may
-	// have either sign (+ or -). Due to roundoff errors, our choice of
-	// sign0tv may even have been wrong in a sense.
-	// sign0tv may NOT indicate the appropriate sign for td->scale[0] (namely,
-	// if cosv is near zero)!
-	// let's look at the signs again
-	//   sign0sv =  signcosv * pvecs[0][sv] / td->scale[0]sign
-	//   sign0tv =             pvecs[0][sv] / td->scale[0]sign
-	//   sign1sv = -1        * pvecs[1][tv] / td->scale[1]sign
-	//   sign1tv =  signcosv * pvecs[1][tv] / td->scale[1]sign
-	// -->
-	//   td->scale[1]sign =  sign1tv * signcosv * pvecs[1][tv]
-	//   td->scale[1]sign = -sign1sv * signsinv * pvecs[1][tv]
-	//   td->scale[0]sign =  sign0tv * signsinv * pvecs[0][sv]
-	//   td->scale[0]sign =  sign0sv * signcosv * pvecs[0][sv]
-	// which to choose?
-	// the one with the larger impact on the original texcoords, of course
-	// to minimize the effect of roundoff errors that may flip the signs!
 
 	td->scale[0] *= HighestImpactSign( STfromXYZ[0][tv] * +sin( ang ), STfromXYZ[0][sv] * cos( ang ) ) * pvecs[0][sv];
 	td->scale[1] *= HighestImpactSign( STfromXYZ[1][sv] * -sin( ang ), STfromXYZ[1][tv] * cos( ang ) ) * pvecs[1][tv];
@@ -619,22 +581,6 @@ void Face_TexdefFromTextureCoordinates( float *xyzst1, float *xyzst2, float *xyz
 
 	uv = 3 - sv - tv; // the "other one"
 
-	// find the STfromXYZ 4-vectors
-	/*
-	   SARRUS-SOLVE:
-	    xyzst1[3] == xyzst1[sv] * STfromXYZ[0][sv] + xyzst1[tv] * STfromXYZ[0][tv] + STfromXYZ[0][3];
-	    xyzst2[3] == xyzst2[sv] * STfromXYZ[0][sv] + xyzst2[tv] * STfromXYZ[0][tv] + STfromXYZ[0][3];
-	    xyzst3[3] == xyzst3[sv] * STfromXYZ[0][sv] + xyzst3[tv] * STfromXYZ[0][tv] + STfromXYZ[0][3];
-	   FOR: STfromXYZ[0]
-	   GIVEN: one coord of them (uv) is empty (see Face_TextureVectors)
-	   SARRUS-SOLVE:
-	    xyzst1[4] == xyzst1[sv] * STfromXYZ[1][sv] + xyzst1[tv] * STfromXYZ[1][tv] + STfromXYZ[1][3];
-	    xyzst2[4] == xyzst2[sv] * STfromXYZ[1][sv] + xyzst2[tv] * STfromXYZ[1][tv] + STfromXYZ[1][3];
-	    xyzst3[4] == xyzst3[sv] * STfromXYZ[1][sv] + xyzst3[tv] * STfromXYZ[1][tv] + STfromXYZ[1][3];
-	   FOR: STfromXYZ[1]
-	   GIVEN: one coord of them (uv) is empty (see Face_TextureVectors)
-	 */
-
 	STfromXYZ[0][uv] = 0;
 	SarrusSolve(
 		xyzst1[sv],        xyzst1[tv],        1,               xyzst1[3],
@@ -651,50 +597,8 @@ void Face_TexdefFromTextureCoordinates( float *xyzst1, float *xyzst2, float *xyz
 		&STfromXYZ[1][sv], &STfromXYZ[1][tv], &STfromXYZ[1][3]
 		);
 
-	/*
-	   printf("%s\n", q->name);
-
-	   printf("%f == %Lf\n", xyzst1[3], DotProduct (xyzst1, STfromXYZ[0]) + STfromXYZ[0][3]);
-	   printf("%f == %Lf\n", xyzst2[3], DotProduct (xyzst2, STfromXYZ[0]) + STfromXYZ[0][3]);
-	   printf("%f == %Lf\n", xyzst3[3], DotProduct (xyzst3, STfromXYZ[0]) + STfromXYZ[0][3]);
-	   printf("%f == %Lf\n", xyzst1[4], DotProduct (xyzst1, STfromXYZ[1]) + STfromXYZ[1][3]);
-	   printf("%f == %Lf\n", xyzst2[4], DotProduct (xyzst2, STfromXYZ[1]) + STfromXYZ[1][3]);
-	   printf("%f == %Lf\n", xyzst3[4], DotProduct (xyzst3, STfromXYZ[1]) + STfromXYZ[1][3]);
-
-	   float   newSTfromXYZ[2][4];
-
-	   printf("old: %Lf,%Lf,%Lf,%Lf %Lf,%Lf,%Lf,%Lf\n",
-	    STfromXYZ[0][0], STfromXYZ[0][1], STfromXYZ[0][2], STfromXYZ[0][3],
-	    STfromXYZ[1][0], STfromXYZ[1][1], STfromXYZ[1][2], STfromXYZ[1][3]);
-	 */
-
 	Face_TexdefFromTextureVectors( f,  STfromXYZ, pvecs, sv, tv );
 
-	/*
-	   Face_TextureVectors(f, newSTfromXYZ);
-
-	   printf("new: %f,%f,%f,%f %f,%f,%f,%f\n",
-	    newSTfromXYZ[0][0], newSTfromXYZ[0][1], newSTfromXYZ[0][2], newSTfromXYZ[0][3],
-	    newSTfromXYZ[1][0], newSTfromXYZ[1][1], newSTfromXYZ[1][2], newSTfromXYZ[1][3]);
-
-	   float newxyzst1[5];
-	   float newxyzst2[5];
-	   float newxyzst3[5];
-	   VectorCopy(xyzst1, newxyzst1);
-	   VectorCopy(xyzst2, newxyzst2);
-	   VectorCopy(xyzst3, newxyzst3);
-	   EmitTextureCoordinates (newxyzst1, q, f);
-	   EmitTextureCoordinates (newxyzst2, q, f);
-	   EmitTextureCoordinates (newxyzst3, q, f);
-	   printf("Face_TexdefFromTextureCoordinates: %f,%f %f,%f %f,%f -> %f,%f %f,%f %f,%f\n",
-	    xyzst1[3], xyzst1[4],
-	    xyzst2[3], xyzst2[4],
-	    xyzst3[3], xyzst3[4],
-	    newxyzst1[3], newxyzst1[4],
-	    newxyzst2[3], newxyzst2[4],
-	    newxyzst3[3], newxyzst3[4]);
-	   // TODO why do these differ, but not the previous ones? this makes no sense whatsoever
-	 */
 }
 
 
@@ -738,9 +642,7 @@ void DrawBrushEntityName( brush_t *b ){
 		return; // not key brush
 
 	}
-	// TTimo: Brush_DrawFacingAngle is for camera view rendering, this function is called for 2D views
-	// FIXME - spog - not sure who put this here.. Brush_DrawFacingAngle() does this job?
-	// Brush_DrawFacingAngle() works when called, but is not being called.
+
 	if ( g_qeglobals.d_savedinfo.show_angles && ( b->owner->eclass->nShowFlags & ECLASS_ANGLE ) ) {
 		// draw the angle pointer
 		a = FloatForKey( b->owner, "angle" );
@@ -874,10 +776,6 @@ void Brush_SnapPlanepts( brush_t *b ){
 **
 ** Builds a brush rendering data and also sets the min/max bounds
 */
-// TTimo
-// added a bConvert flag to convert between old and new brush texture formats
-// TTimo
-// brush grouping: update the group treeview if necessary
 void Brush_Build( brush_t *b, bool bSnap, bool bMarkMap, bool bConvert, bool bFilterTest ){
 	bool bLocalConvert;
 
@@ -2093,134 +1991,6 @@ brush_t *Brush_FullClone( brush_t *b ){
 	return n;
 }
 
-// FIXME - spog - finish this later..
-/*
-   bool Triangle_Ray(vec3_t origin, vec3_t dir, vec3_t p1, vec3_t p2, vec3_t p3)
-   {
-   int i;
-   vec3_t v1, v2, normal[3];
-   float d;
-
-   //Sys_Printf("p1: %f %f %f\n",p1[0],p1[1],p1[2]);
-   //Sys_Printf("p2: %f %f %f\n",p2[0],p2[1],p2[2]);
-   //Sys_Printf("p3: %f %f %f\n",p3[0],p3[1],p3[2]);
-   //Sys_Printf("origin: %f %f %f\n",origin[0],origin[1],origin[2]);
-
-   // test ray against triangle
-   // get triangle plane normal
-   //VectorSubtract(p1, p2, v1);
-   //VectorSubtract(p1, p3, v2);
-   //CrossProduct(v1, v2, v1);
-   // check normal against direction
-   //if (DotProduct(dir, v1) >= 0)
-   //{
-       // generate cone normals
-       VectorSubtract(origin, p1, v1);
-       VectorSubtract(origin, p2, v2);
-       CrossProduct(v1, v2, normal[0]);
-       VectorSubtract(origin, p2, v1);
-       VectorSubtract(origin, p3, v2);
-       CrossProduct(v1, v2, normal[1]);
-       VectorSubtract(origin, p3, v1);
-       VectorSubtract(origin, p1, v2);
-       CrossProduct(v1, v2, normal[2]);
-   //}
-   //else
-   //{
-       // flip normals if triangle faces away
-   //	Sys_Printf("flipped\n");
-   //	VectorSubtract(origin, p1, v1);
-   //	VectorSubtract(origin, p3, v2);
-   //	CrossProduct(v1, v2, normal[0]);
-   //	VectorSubtract(origin, p3, v1);
-   //	VectorSubtract(origin, p2, v2);
-   //	CrossProduct(v1, v2, normal[1]);
-   //	VectorSubtract(origin, p2, v1);
-   //	VectorSubtract(origin, p1, v2);
-   //	CrossProduct(v1, v2, normal[2]);
-   //}
-
-   for (i=0; i<3; i++)
-   {
-       VectorNormalize(normal[i]);
-       //Sys_Printf("direction: %f %f %f\n",dir[0],dir[1],dir[2]);
-       //Sys_Printf("normal: %f %f %f\n",normal[i][0],normal[i][1],normal[i][2]);
-       d = DotProduct(dir, normal[i]);
-       //Sys_Printf("dotproduct: %f\n",d);
-       if (d < 0)
-           return false;
-   }
-   return true;
-   }
- */
-
-/*
-   extern int Triangle_Ray(float orig[3], float dir[3], bool bCullBack,
-                 float vert0[3], float vert1[3], float vert2[3],
-                 double *t, double *u, double *v);
-
-   bool Model_Ray(brush_t *b, vec3_t origin, vec3_t dir, double *t, double *u, double *v)
-   {
-   bool bIntersect = false;
-   float tBest = FLT_MAX;
-   int i, j;
-   vec3_t xyz[3];
-   vec3_t vRay[2];
-
-   float angle = FloatForKey (b->owner, "angle"); // FIXME: should be set when this entity key is set
-
-   VectorSubtract (origin, b->owner->origin, vRay[0]);
-   VectorCopy (dir, vRay[1]);
-
-   if (angle > 0)
-   {
-    int i;
-    float s, c;
-    float x, y;
-
-    s = sin (-angle/180*Q_PI);
-    c = cos (-angle/180*Q_PI);
-
-    for (i=0; i<2; i++)
-    {
-      x = vRay[i][0];
-      y = vRay[i][1];
-      vRay[i][0] = (x * c) - (y * s);
-      vRay[i][1] = (x * s) + (y * c);
-    }
-   }
-
-   entitymodel *model = b->owner->md3Class->model;
-
-   while (model != NULL)
-   {
-    for (i = 0; i < model->nTriCount; i++)
-    {
-      for (j = 0; j < 3; j++)
-        VectorCopy(model->pVertList[model->pTriList[i].indexes[j]].v, xyz[j]);
-
-      if (Triangle_Ray(vRay[0], vRay[1], true, xyz[0], xyz[2], xyz[1], t, u, v))
-      {
-        bIntersect = true;
-        if (*t < tBest)
-          tBest = *t;
-      }
-    }
-    model = model->pNext;
-   }
-   if (bIntersect)
-   {
-   *t = tBest;
-    return true;
-   }
-   else
-   {
-   *t = 0;
-    return false;
-   }
-   }
- */
-
 /*
    ==============
    Brush_Ray
@@ -2665,10 +2435,6 @@ void Brush_SetBuildWindingsNoTexBuild( bool bBuild ){
 	g_bBuildWindingsNoTexBuild = bBuild;
 }
 
-// TTimo: don't rebuild pShader and d_texture if it doesn't seem necessary
-//    saves quite a lot of time, but on the other hand we've gotta make sure we clean the d_texture in some cases
-//    ie when we want to update a shader
-//    default will make Radiant rebuild the texture, but it can be turned off by setting the flag g_bBuildWindingsNoTexBuild
 void Brush_BuildWindings( brush_t *b, bool bSnap ){
 	winding_t *w;
 	face_t    *face;
@@ -2761,17 +2527,7 @@ void Brush_BuildWindings( brush_t *b, bool bSnap ){
 		{
 			if ( g_qeglobals.bNeedConvert ) {
 				BrushPrimitFaceToFace( face );
-/*
-        // we have parsed brush primitives and need conversion back to standard format
-        // NOTE: converting back is a quick hack, there's some information lost and we can't do anything about it
-                // FIXME: if we normalize the texture matrix to a standard 2x2 size, we end up with wrong scaling
-                // I tried various tweaks, no luck .. seems shifting is lost
-        brushprimit_texdef_t aux;
-        ConvertTexMatWithQTexture( &face->brushprimit_texdef, face->d_texture, &aux, NULL );
-        TexMatToFakeTexCoords( aux.coords, face->texdef.shift, &face->texdef.rotate, face->texdef.scale );
-                face->texdef.scale[0]/=2.0;
-                face->texdef.scale[1]/=2.0;
- */
+				
 			}
 			for ( i = 0 ; i < w->numpoints ; i++ )
 				EmitTextureCoordinates( w->points[i], face->d_texture, face );
@@ -3003,16 +2759,6 @@ void Brush_FaceDraw( face_t *face, int nGLState ){
 	if ( ( nGLState & DRAW_GL_LIGHTING ) && g_PrefsDlg.m_bGLLighting ) {
 		qglNormal3fv( face->plane.normal );
 	}
-	/*
-	   if (mode & DRAW_GL_TEXTURE_2D)
-	      qglTexCoordPointer(2, GL_FLOAT, 5, &w->points[3]);
-	   qglVertexPointer(3, GL_FLOAT, 5, w->points);
-
-	   if (mode & DRAW_GL_FILL)
-	      qglDrawArrays(GL_TRIANGLE_FAN, 0, w->numpoints);
-	   else
-	      qglDrawArrays(GL_POLYGON, 0, w->numpoints);
-	 */
 
 	if ( nGLState & DRAW_GL_FILL ) {
 		qglBegin( GL_TRIANGLE_FAN );
@@ -3742,55 +3488,13 @@ void aabb_draw( const aabb_t *aabb, int mode ){
 	qglVertex3fv( points[4] );
 
 	qglEnd();
-
-/*
-
-
-   vec3_t Coords[8];
-
-    vec3_t vMin, vMax;
-   VectorSubtract(aabb->origin, aabb->extents, vMin);
-   VectorAdd(aabb->origin, aabb->extents, vMax);
-   VectorSet(Coords[0], vMin[0], vMax[1], vMax[2]);
-   VectorSet(Coords[1], vMax[0], vMax[1], vMax[2]);
-   VectorSet(Coords[2], vMax[0], vMin[1], vMax[2]);
-   VectorSet(Coords[3], vMin[0], vMin[1], vMax[2]);
-   VectorSet(Coords[4], vMin[0], vMax[1], vMin[2]);
-   VectorSet(Coords[5], vMax[0], vMax[1], vMin[2]);
-   VectorSet(Coords[6], vMax[0], vMin[1], vMin[2]);
-   VectorSet(Coords[7], vMin[0], vMin[1], vMin[2]);
-
-    vec3_t Normals[8] = { {-1, 0, 0 },
-                                            { 0, 0, 0 },
-                                            { 0, 0, 0 },
-                                            { 0, 0, 1 },
-                                            { 0, 0,-1 },
-                                            { 0, 1, 0 },
-                                            { 1, 0, 0 },
-                                            { 0,-1, 0 } };
-
-    unsigned short Indices[24] = { 2, 1, 5, 6,
-                                                                 1, 0, 4, 5,
-                                                                 0, 1, 2, 3,
-                                                                 3, 7, 4, 0,
-                                                                 3, 2, 6, 7,
-                                                                 7, 6, 5, 4 };
-
-   qglVertexPointer(3, GL_FLOAT, 0, Coords);         // filling the arrays
-   qglNormalPointer(GL_FLOAT, 0, Normals);
-
-   //glLockArraysEXT(0, count);                // extension GL_EXT_compiled_vertex_array
-
-   qglDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, Indices);
-
-   //glUnlockArraysEXT;                        // extension GL_EXT_compiled_vertex_array
- */
 }
 
 qboolean IsBrushSelected( brush_t* bSel ){
 	for ( brush_t* b = selected_brushes.next ; b != NULL && b != &selected_brushes; b = b->next )
 	{
 		if ( b == bSel ) {
+		  Sys_Printf("----------Radiant Brush %brush_t Selected----------\n");
 			return true;
 		}
 	}
