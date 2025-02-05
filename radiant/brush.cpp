@@ -29,6 +29,7 @@
 #include "winding.h"
 #include <limits.h>
 #include "filters.h"
+#include <iterator>
 
 extern MainFrame* g_pParentWnd;
 
@@ -91,6 +92,11 @@ void PrintVector( vec3_t vector ){
 	Sys_Printf("-------------Radiant Plane Vectors Printed: %f--------------\n");
 	Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n",  vector[0],  vector[1], vector[2] );
 }
+
+void IterateBrush(iterator i){
+brush_t * b(*brush_t);
+ IterateBrush(i.begin(); i.end(); b++);
+};
 
 
 /*
