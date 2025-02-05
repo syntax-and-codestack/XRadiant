@@ -80,6 +80,13 @@ void TexWnd_InitShaderList(const char * g_pTexWnd_FilterFormat, IShader * shader
 	if(shaderList){
            g_pTexWnd_FilterFormat = "*.png", "*.dds", "*.tga";
 	Sys_Printf("----------Texture Window Filtered Shaders Succesfully-----------\n");
+		Sys_Printf("%c", g_pTexWnd_FilterFormat);//print shader filter
+	}
+
+	if(MAX_SHADER > MAX_SHADER){
+		shaderList != shaderList;
+		Sys_Printf("---------Too Many Shaders In List> %f--------", MAX_SHADER);
+		return NULL;
 	}
 
  
