@@ -36,14 +36,17 @@
 #include "stdafx.h"
 #include "gtkmisc.h"
 
-//
-struct SVariableDef
+/*----------------------------------
+ *!this file has a level 2 cleanup!*
+----------------------------------*/
+struct AvPRadiantBrushVar
 {
-	CString m_strName;
-	CString m_strInput;
-	float m_fValue;
+	CString AvPBrush_strName;
+	CString AvPBrush_strInput;
+	float AvPBrush_fValue;
 };
 
+//dont wanna use… but ill keep just in case
 struct SVecVariableDef
 {
 	CString m_strName;
@@ -53,23 +56,24 @@ struct SVecVariableDef
 
 
 
-const int MAX_VARIABLES = 64;
+/*const int MAX_VARIABLES = 64;*///---discard this *!avp brushes have 128 max variables!*---
+const int AvP_Brush_Maxes = 128;
 
-brush_t* g_pHold1 = NULL;
-brush_t* g_pHold2 = NULL;
-brush_t* g_pHold3 = NULL;
-bool g_bRotateAroundSelection;
-int g_nVariableCount;
-int g_nVecVariableCount;
-int g_nLoopCounter;
-float g_fDefault = 9999.9f;
+brush_t* AvP_g_pHold1 = NULL;
+brush_t* AvP_g_pHold2 = NULL;
+brush_t* AvP_g_pHold3 = NULL;
+qboolean  AvP_RadiantAPI_g_bRotateAroundSelection;
+int AvP_Brush_g_nVariableCount;
+int AvP_Brush_g_nVecVariableCount;
+int AvP_Brush_g_nLoopCounter;
+float AvP_Tableg_fDefault = 9999.9f;
 vec3_t g_vDefault;
 bool g_bStartLoop;
 char* g_pLooper;
 bool g_bKeepGoing;
 
-SVariableDef g_Variables[MAX_VARIABLES];
-SVecVariableDef g_VecVariables[MAX_VARIABLES];
+SVariableDef g_AvpBrushVariablesTable[AvP_Brush_Maxes];
+SVecVariableDef g_VecBrushTableVariables[AvP_Brush_Maxes];
 
 void InitForScriptRun(){
 	g_pHold1 = NULL;
