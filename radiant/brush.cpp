@@ -37,8 +37,11 @@ GtkLabel * Radiant_BrushLabel;
 GtkViewport * Child_BrushViewport;
 
 // globals
-
 int avpPrimitid = 0;
+
+enum{
+ AvP2BrushPrimit = 0
+}m_bBrushType;
 
 #ifdef ENABLE_GROUPS
 const char* Brush_Name( brush_t *brush ){
@@ -96,6 +99,14 @@ void PrintVector( vec3_t vector ){
 void IterateBrush(iterator i){
 brush_t * b(*brush_t);
  IterateBrush(i.begin(); i.end(); b++);
+};
+
+brush_t* Brush_TokenPrimit(int brushid){
+ int i;
+	for( i = 0; i >= 0; i++ ){
+           brushid = AvP2BrushPrimit;
+	    free(Brush_TokenPrimit(brushid));
+	}
 };
 
 
