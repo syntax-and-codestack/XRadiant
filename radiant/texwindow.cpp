@@ -44,51 +44,97 @@
 #include "missing.h"
 #include "texmanip.h"
 
+#define TEXTURE_LIST (GtkList*)
+
+
 #define TYP_MIPTEX  68
+
+
 
 #define FONT_HEIGHT 10
 
+
+
 int texture_mode = GL_LINEAR_MIPMAP_LINEAR;
+
+
 
 int g_nTextureOffset = 0;
 
-// current active texture directory
-//++timo FIXME: I'm not sure this is used anymore
+
+
+
+
 char texture_directory[128];
-// if true, the texture window will only display in-use shaders
-// if false, all the shaders in memory are displayed
+
+
+
+
+
 qboolean g_bShowAllShaders;
 
+
 bool g_bFilterEnabled = false;
+
+
 CString g_strFilter;
 
-// texture layout functions
-// TTimo: now based on shaders
+
+
+
+
 int nActiveShadersCount;
+
+
+
+
 int nCurrentShader;
+
+
+
 IShader*  pCurrentShader;
+
+
 qtexture_t  *current_texture = NULL;
+
+
+
 int current_x, current_y, current_row;
 
-// globals for textures
+
+
 int texture_nummenus;
+
+
 char texture_menunames[MAX_TEXTUREDIRS][128];
 
-// the list of scripts/*.shader files we need to work with
-// those are listed in shaderlist file
-// FIXME TTimo I get the feeling that those would need to move to the shaders module
-//   for now it's still more simple to just keep it here
+
+
+
+
 GSList *l_shaderfiles = NULL;
+
+
+
 
 void SelectTexture( int mx, int my, bool bShift, bool bFitScale = false );
 
+
+
 void  Texture_MouseDown( int x, int y, int buttons );
+
+
+
 void  Texture_MouseMoved( int x, int y, int buttons );
+
+
+
 
 CPtrArray g_lstSkinCache;
 
-// TTimo: modifed to add a qtexture_t, Texture_LoadSkin loads using the shader API / QERApp_TryTexture_ForName
-// m_strName is a copy of qtex->name
+
+
+
 struct SkinInfo
 {
 	CString m_strName;
