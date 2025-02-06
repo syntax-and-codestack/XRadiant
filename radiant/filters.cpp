@@ -28,32 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "Aliens.hpp"
 #include "stdafx.h"
 
-/*
-    Rambetter on Sun Jan 23, 2011:
-
-    What follows is a discussion of the introduction to some new members and functions
-    such as baseFilters, baseFilterExcludes, FilterAddImpl(), and so on.
-
-    There was a problem that "base" filters were not taking effect as a result of
-    user action such as clicking a filter checkbox.  The reason why the base filters
-    were not being updated is because the previous logic of updating the filters had
-    been commented out.  It was commented out because the previous logic deleted ALL
-    filters (including plugin filters) and re-created only the base filters.  So in
-    effect, all plugin filters would be deleted whenever a filter checkbox was altered.
-
-    So, we need some way of knowing which are the base filters so that we can take
-    action when a filter checkbox is marked [or unmarked].  Then we can update
-    the base filters by either deleting and recreating them, or by changing their
-    active state in an intelligent manner.  I am choosing to do the latter.
-
-    My goal here is to preserve the structure bfilter_t completely as it has been
-    historically.  I feel that modifying bfilter_t is dangerous with respect to breaking
-    plugins.  So what I'm doing instead is tracking which are the base filters via
-    external array, baseFilters.  The array baseFilterExcludes keeps track of the "exclude"
-    parameter for the corresponding filter.
- */
+//Filters.cpp modified by hunter manko
 
 #define MAX_BASE_FILTERS 32
 static bfilter_t   *baseFilters[MAX_BASE_FILTERS];
@@ -191,6 +169,12 @@ void FilterUpdateBase(){
 		}
 	}
 }
+
+/*
+*!filter alien entity!*
+*/
+bfilter_t * FilterAlien_Entity(Alien * alien_f, int fType){
+};
 
 /*
    ==================
