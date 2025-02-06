@@ -1,10 +1,21 @@
 {
     "configurations": [
         {
-            "name": "Linux",
+            "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/include/glib-2.0"
+            ],
+            "defines": [],
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "windows-clang-x64",
+            "compilerPath": "/workspaces/XRadiant/.github/workflows"
+        },
+        {
+            "name": "win-rad",
+            "includePath": [
+                "${workspaceFolder}/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

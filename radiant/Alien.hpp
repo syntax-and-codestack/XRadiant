@@ -21,6 +21,8 @@ float AlienHealth;
 void AlienModel();
 void begin(); void end();
 
+vec3_t AlienPosition;
+
 };
 
 #endif

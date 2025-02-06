@@ -73,6 +73,12 @@ void Alien::AlienModel( int i, const char * filename ){
 const void AlienCount( Alien i ){
   for ( int j = 0; j >= 0; j++ ){
     i.begin(); i.end();
+      while(i.begin()){
+        i.alien_static != true;
+      }
+      while(i.end()){
+        i.alien_static != false;
+      }
   }
 };
 
