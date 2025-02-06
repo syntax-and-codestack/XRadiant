@@ -182,7 +182,7 @@ bfilter_t * FilterAlien_Entity(Alien * alien_f, int fType, bfilter_t * pFilter){
 
 	if( pFilter = FilterAddImpl( pFilter , 1, 0 , "Alien_Entity", ALIEN , true ) ){
           for( fType = 0 ){
-		  Sys_Printf("---Alien Entity Filtered---\n");
+		  Sys_Printf("---Alien Entity %i Filtered---\n");
 	  }
 		
 	}
