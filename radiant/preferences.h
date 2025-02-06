@@ -185,6 +185,7 @@ bool mNoPatch;   ///< this game doesn't support patch technology
 Str mCaulkShader;   ///< the shader to use for caulking
 bool noMapsInHome;   ///< set this if you want to open the engine path/base dir/maps dir for map open/save dialoges */
 bool idTech2;  // set this to true for idTech2 games
+bool AvP2;
 
 CGameDescription() { mpDoc = NULL; }
 /*!
