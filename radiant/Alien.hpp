@@ -11,6 +11,7 @@
   Writen by hunter manko
 ---------------------------*/
 typedef struct Alien{
+
 int current_alien_var;
 Alien& avp_eAlien;
 bool alien_static;//no path nodes
@@ -18,6 +19,7 @@ bool alien_static;//no path nodes
 void SpawnAlien(void);
 float avp_eAlienHealth;
 void AlienModel();
+
 };
 
 #endif
