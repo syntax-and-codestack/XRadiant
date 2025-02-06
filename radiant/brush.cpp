@@ -62,6 +62,13 @@ const char* Brush_Name( brush_t *brush ){
 }
 #endif
 
+//surface flags d
+int SURFACE_FLAGS_DETAIL;
+SURFACE_FLAGS_DETAIL >> 27;
+
+//brush flags b
+int BRUSH_TARGET_FLAGS;
+
 //brush real size
 std::size_t globalBrushSize(brush_t * brush){
  globalBrushSize(brush) = sizeof(*brush);
