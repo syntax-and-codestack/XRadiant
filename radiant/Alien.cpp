@@ -35,7 +35,7 @@ void Alien::AlienModel( int i, const char * filename ){
   const char * ModelFormat = "*.abc";//abc model format
  
   for( i = 0; i >= 0; i++; ModelFormat; ModelFormat++; filename; filename++ ){
-    filename[i] = "%c" + ModelFormat[i];
+    filename[i] = "%5c" + ModelFormat[i];
   }
 
   if(Alien::AlienModel( i, filename )){
