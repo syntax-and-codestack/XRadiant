@@ -1,6 +1,6 @@
 <start!>{
 <game/>"Aliens Vs Predator 2"<game>
- <model/>"*.radmodel"<model>
+ <model/>"*.abc"<model>
   <brush/>"AvpBrush"<brush>
    <shader/>"*.png", "*.dds", "*.tga"<shader>
     <def/>"AvP2.def"<def>
