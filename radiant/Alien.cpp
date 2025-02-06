@@ -28,6 +28,14 @@ alien->alien_current_var = e_tAlienId++;
 return alienBuff;
 };
 
+/*
+ *!alien model format!*
+*/
+void Alien::AlienModel( int i, const char * filename ){
+  
+
+};
+
 
 
 
