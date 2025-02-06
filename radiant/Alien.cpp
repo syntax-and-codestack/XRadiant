@@ -63,6 +63,15 @@ void Alien::AlienModel( int i, const char * filename ){
 
 };
 
+/*
+ *!alien count!*
+*/
+const void AlienCount( Alien i ){
+  for ( int j = 0; j >= 0; j++ ){
+    i.begin(); i.end();
+  }
+};
+
 
 
 
