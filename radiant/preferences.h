@@ -202,6 +202,7 @@ void Dump();
    select games, copy editing assets and write out configuration files
  */
 
+#define AVP_GAME "AvP2.game"
 #define Q3_GAME "q3.game"
 #define URT_GAME "urt.game"
 #define UFOAI_GAME "ufoai.game"
