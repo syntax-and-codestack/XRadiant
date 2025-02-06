@@ -31,7 +31,9 @@
 #include "Aliens.hpp"
 #include "stdafx.h"
 
-//Filters.cpp modified by hunter manko
+//------------------------------------------
+//---filters.cpp modified by hunter manko---
+//------------------------------------------
 
 #define MAX_BASE_FILTERS 32
 static bfilter_t   *baseFilters[MAX_BASE_FILTERS];
@@ -170,9 +172,9 @@ void FilterUpdateBase(){
 	}
 }
 
-/*
+/*=====================
 *!filter alien entity!*
-*/
+======================*/
 bfilter_t * FilterAlien_Entity(Alien * alien_f, int fType){
 };
 
