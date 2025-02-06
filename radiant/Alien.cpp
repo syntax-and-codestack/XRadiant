@@ -1,4 +1,4 @@
-#include "Alien.hpp"
+#include "radiant/Alien.hpp"
 
 #define ALIEN 000
 #define ALLOC_ALIEN (Alien*) ( sizeof(*Alien)malloc( std::size_t alien (*size += sizeof(*alien) ) ) )
