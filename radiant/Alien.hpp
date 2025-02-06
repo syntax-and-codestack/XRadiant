@@ -16,8 +16,8 @@ int current_alien_var;
 Alien& avp_eAlien;
 bool alien_static;//no path nodes
 
-void SpawnAlien(void);
-float avp_eAlienHealth;
+void SpawnAlien();
+float AlienHealth;
 void AlienModel();
 
 };
