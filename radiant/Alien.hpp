@@ -19,6 +19,7 @@ bool alien_static;//no path nodes
 void SpawnAlien();
 float AlienHealth;
 void AlienModel();
+void begin(); void end();
 
 };
 
