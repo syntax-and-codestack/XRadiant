@@ -3,6 +3,10 @@
 #define ALIEN 000
 #define ALLOC_ALIEN (Alien*) ( sizeof(*Alien)malloc( std::size_t alien (*size += sizeof(*alien) ) ) )
 
+//Alien.cpp written by hunter manko
+//This file was not originaly part of GtkRadiant
+//This file belongs to XRadiant 1.6 - release
+
 //---globals---
 int e_tAlienId = 0;
 qboolean Rigged;
