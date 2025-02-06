@@ -41,6 +41,12 @@ void Alien::AlienModel( int i, const char * filename ){
   if(Alien::AlienModel( i, filename )){
     const char * FullFile[0];//dont stack…
     int Max_Vertices_List[9999];//dont exceed game is old!
+
+       if( Max_Vertices_List && i > Max_Vertices_List && i ){
+           Max_Vertices_List && i = NULL;
+       Sys_Printf("----------Alien Model Has To Many Vertices------------\n");
+       }
+    
   }
 
 };
