@@ -184,7 +184,9 @@ bfilter_t * FilterAlien_Entity(Alien * alien_f, int fType, bfilter_t * pFilter){
           for( fType = 0 ){
 		  Sys_Printf("---Alien Entity Filtered---\n");
 	  }
+		
 	}
+    return pFilter;
 };
 
 /*
