@@ -38,7 +38,7 @@ int BP_MessageBox( int status ){
 	gint response_id;
 	GtkDialogFlags flags = GTK_DIALOG_DESTROY_WITH_PARENT;
 
-	dialog = gtk_dialog_new_with_buttons( _( "Current map format is incompatible" ), NULL, flags, NULL );
+	dialog = gtk_dialog_new_with_buttons( _( " ERR: Radiant map format is incompatible" ), NULL, flags, NULL );
 	gtk_window_set_transient_for( GTK_WINDOW( dialog ), GTK_WINDOW( g_pParentWnd->m_pWidget ) );
 	gtk_container_set_border_width( GTK_CONTAINER( dialog ), 10 );
 
