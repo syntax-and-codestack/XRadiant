@@ -32,7 +32,16 @@ return alienBuff;
  *!alien model format!*
 */
 void Alien::AlienModel( int i, const char * filename ){
-  
+  const char * ModelFormat = "*.abc";//abc model format
+ 
+  for( i = 0; i >= 0; i++; ModelFormat; ModelFormat++; filename; filename++ ){
+    filename[i] = "%c" + ModelFormat[i];
+  }
+
+  if(Alien::AlienModel( i, filename )){
+    const char * FullFile[0];//dont stack…
+    int Max_Vertices_List[9999];//dont exceed game is old!
+  }
 
 };
 
