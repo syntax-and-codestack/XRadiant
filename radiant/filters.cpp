@@ -179,6 +179,12 @@ bfilter_t * FilterAlien_Entity(Alien * alien_f, int fType, bfilter_t * pFilter){
 	if( g_pGameDescription->AvP2 ){
           pFilter = FilterAddImpl( pFilter , 1, 0 , "Alien_Entity", ALIEN , true );
 	};
+
+	if( pFilter = FilterAddImpl( pFilter , 1, 0 , "Alien_Entity", ALIEN , true ) ){
+          for( fType = 0 ){
+		  Sys_Printf("---Alien Entity Filtered---\n");
+	  }
+	}
 };
 
 /*
