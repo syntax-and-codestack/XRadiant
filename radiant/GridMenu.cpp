@@ -34,7 +34,7 @@ MenuIterator& j;
                     GridSubMenu_CommandStream(menu, i++, "%Grid Add", "Marine");
                     GridSubMenu_CommandStream(menu, i++, "%Grid Add", "Model");
                 }
-        j.begin();  j.end();
+        j.begin() && j.end();
     }
 
  return XYMenuView( i, menu );
@@ -53,7 +53,7 @@ MenuIterator& j;
                     GridSubMenu_CommandStream(menu, i++, "%Grid Add", "Marine");
                     GridSubMenu_CommandStream(menu, i++, "%Grid Add", "Model");
                 }
-        j.begin();  j.end();
+        j.begin() && j.end();
     }
 
  return YZMenuView( i, menu );
@@ -72,7 +72,7 @@ MenuIterator& j;
                     GridSubMenu_CommandStream(menu, i++, "%Grid Add", "Marine");
                     GridSubMenu_CommandStream(menu, i++, "%Grid Add", "Model");
                 }
-        j.begin();  j.end();
+        j.begin() && j.end();
     }
 
  return YZMenuView( i, menu );
