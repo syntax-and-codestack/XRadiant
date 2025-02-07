@@ -10,6 +10,8 @@ qboolean g_nFlushCommands;
       by hunter manko
 --------------------------*/
 
+//*!still being modified!*
+
 #define GTK_GRID_MENU (GtkWidget*)
 #define GRID_MENU_COMMAND (const char * MenuCommand)
 
