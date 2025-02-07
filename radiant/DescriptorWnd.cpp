@@ -40,10 +40,13 @@ void InitDescriptor( GtkWindow * Descriptor, int i, GtkWidget * Panel, Alien * a
             }
 
         if(alien){
-            alien->avp_eAlien.AlienInfo( alien, info );
-            Sys_Printf("Alien Info %c", alien);
-         alien->avp_eAlien.AddAlienTable_ToPanel( Panel, alien->avp_eAlien.AlienInfo( alien, info ));
-         Panel = gtk_glwidget_print_char( info );
+          alien->avp_eAlien.AlienInfo( alien, info );
+            
+          Sys_Printf("Alien Info %c", alien);
+            
+          alien->avp_eAlien.AddAlienTable_ToPanel( Panel, alien->avp_eAlien.AlienInfo( alien, info ));
+            
+          Panel = gtk_glwidget_print_char( info );
         }
 
         SetWindowGtk( Descriptor, gtkpos->h && gtkpos->w = 450, Panel, "Radiant Entity Descriptor");
