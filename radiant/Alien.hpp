@@ -21,6 +21,19 @@ float AlienHealth;
 void AlienModel();
 void begin(); void end();
 
+void AlienInfo( Alien * alien, const char * info ){
+  Alien& i;
+
+    if( i.SpawnAlien() ){
+      alien->current_alien_var == ALIEN_HPP;
+    }
+
+  info = "Entity: Alien | Types: Static, NonStatic | Classname: Entity | Spawnflags: 322\n";
+
+};
+
+void AddAlienTable_ToPanel(GtkWidget * widget, Alien * alien, int i);
+
 vec3_t AlienPosition;
 
 };
