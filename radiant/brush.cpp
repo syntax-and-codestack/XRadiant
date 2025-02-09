@@ -33,7 +33,7 @@
 #include "winding.h"
 #include <limits.h>
 #include "filters.h"
-#include <iterator>//need to iterate brush_t<char_ptr*>(*brush_t)
+#include <set>//need to iterate brush_t<char_ptr*>(*brush_t)
 
 extern MainFrame* g_pParentWnd;
 
@@ -59,7 +59,7 @@ const char* Brush_Name( brush_t *brush ){
 		Brush_SetEpair( brush, "AvP Primit Name %c", g_nBrushBuffModule );
 	}
   return g_nBrushBuffModule;
-}
+};
 #endif
 
 //surface flags d
@@ -77,7 +77,7 @@ std::size_t globalBrushSize(brush_t * brush){
 brush_t *Brush_Alloc(){
 	brush_t *b = (brush_t*)qmalloc( sizeof( brush_t ) );
 	return b;
-}
+};
 
 void PrintSize(){
  Sys_Printf("--------Radiant Brush Size %sizeof(%*brush_t)---------\n");
@@ -87,33 +87,42 @@ void PrintSize(){
 void Radiant_PrintBrushFree(){
  Sys_Printf("-------------Radiant Brush Free--------------\n");
 	Sys_Printf("---Free---:", 
-		free(brush_t*(b));
+		free(brush_t*(b)));
 };
 
 void PrintWinding( winding_t *winding ){
 	int i;
-
+	std::set<winding_t> BrushWinding;
 	Sys_Printf( "----------Radiant Brush Primit Winding Printed: %i-------\n" );
 	for ( i = 0 ; i < winding->numpoints ; i++ )
 		Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n", winding->points[i][0]
 					, winding->points[i][1], winding->points[i][2] );
-}
+		BrushWinding.begin(), BrushWinding.end();
+};
 
 void PrintPlane( plane_t *plane ){
+	std::set<plane_t> BrushPlane;
 	Sys_Printf("--------------Radiant Brush Plane Printed: %f----------------\n");
 	Sys_Printf( "(%5.2f, %5.2f, %5.2f) : %5.2f\n",  plane->normal[0],  plane->normal[1],
 				plane->normal[2],  plane->dist );
-}
+	BrushPlane.begin(), BrushPlane.end();
+};
 
 void PrintVector( vec3_t vector ){
-	Sys_Printf("-------------Radiant Plane Vectors Printed: %f--------------\n");
-	Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n",  vector[0],  vector[1], vector[2] );
-}
-
-void IterateBrush(iterator i){
-brush_t * b(*brush_t);
- IterateBrush(i.begin(); i.end(); b++);
+	static_cast<class>(vec3_t);
+		Sys_Printf("-------------Radiant Plane Vectors Printed: %f--------------\n");
+			Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n",  vector[0],  vector[1], vector[2] );
+		std::set<vec3_t> Vector;
+	Vector.begin(), Vector.end();
 };
+
+//iterate brush and set
+std::set<brush_t> brush;
+const void IterateBrush( int i ){
+	for( i = 0; i >= 0; i++ ){
+		brush.begin(), brush.end();
+	}
+}
 
 brush_t* Brush_TokenPrimit(int brushid){
  int i;
@@ -2258,6 +2267,13 @@ void Brush_SetTexture( brush_t *b, texdef_t *texdef, brushprimit_texdef_t *brush
 	}
 }
 
+//iterate brush texture
+std::set<texdef_t> g_nBrushTexture;
+const void IterateBrush_Texture( int i ){
+	for( i = 0; i >= 0; i++ ){
+		g_nBrushTexture.begin(), g_nBrushTexture.end(); 
+	}
+}
 
 qboolean ClipLineToFace( vec3_t p1, vec3_t p2, face_t *f ){
 	float d1, d2, fr;
@@ -3525,9 +3541,22 @@ qboolean IsBrushSelected( brush_t* bSel ){
 	for ( brush_t* b = selected_brushes.next ; b != NULL && b != &selected_brushes; b = b->next )
 	{
 		if ( b == bSel ) {
+			brush.begin(), brush.end();
+			IsBrushSelected( bSel ) = g_qeglobals.m_bBrushPrimitMode == true;
 		  Sys_Printf("----------Radiant Brush %brush_t Selected----------\n");
 			return true;
 		}
 	}
 	return false;
+}
+
+const void BrushEndSel( int i , brush_t * b ){
+	if(!IsBrushSelected( b )){
+		for( i = 0; i >= 0; i++ ){
+			brush.end(), brush.begin();
+			IsBrushSelected( b ) != g_qeglobals.m_bBrushPrimitMode == true;
+		}
+	Sys_Printf( "------------Radiant Brush %brush_t UnSelected------------\n" );
+	}
+  return brush;
 }
