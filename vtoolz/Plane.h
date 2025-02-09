@@ -18,7 +18,7 @@ public:
         plane.begin() && plane != plane.end();
       }
        return plane;
-    };
+    }const;
     
 
 
