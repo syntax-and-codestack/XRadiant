@@ -17,3 +17,7 @@ void Radiant::Paint(){
     paint()->d_texture_scroll;//texturewndscrollbar
     paint()->d_z;//zwnd
 }
+
+int Radiant::Timer(){
+    int m_bTick = 0;
+}
