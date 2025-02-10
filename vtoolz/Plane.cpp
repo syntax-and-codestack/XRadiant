@@ -16,19 +16,19 @@ double _dist = dist;
 vec3_t _norm = normal;
 
     for(_dist){
-     double i;
-      for( i = 0; i >= 0; i++ ){
-        _dist[i];
-      }
-     g_nPlaneCallback.begin(), g_nPlaneCallback.end();
+    double i;
+          for( i = 0; i >= 0; i++ ){
+            _dist[i];
+          }
+    g_nPlaneCallback.begin(), g_nPlaneCallback.end();
     }
 
     for(_norm){
-     float i;
-        for( i = 0; i >= 0; i++ ){
-            _norm[i][0], _norm[i][1], _norm[i][2];
-        }
-     g_nPlaneCallback.begin(), g_nPlaneCallback.end();
+    float i;
+          for( i = 0; i >= 0; i++ ){
+              _norm[i][0], _norm[i][1], _norm[i][2];
+          }
+    g_nPlaneCallback.begin(), g_nPlaneCallback.end();
     }
 
     PlaneElementsT(_dist, _norm);
