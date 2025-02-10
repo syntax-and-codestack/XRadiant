@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //BuildBrush.cpp programmed by hunter manko
 
 #include "stdafx.h"
