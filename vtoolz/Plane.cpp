@@ -11,7 +11,6 @@ void PlaneElementsT( double * d, vec3_t * n );
 
 //Plane3
 const void Plane3( Plane * plane, double dist, vec3_t normal, int points ){
-
 double _dist = dist;
 vec3_t _norm = normal;
 
@@ -36,5 +35,4 @@ vec3_t _norm = normal;
  Plane T;
 
 return T.IteratePlane( points );
-
 }const;
